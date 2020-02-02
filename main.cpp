@@ -26,6 +26,7 @@ int main(int argc,char *argv[]){
 
     if(enable_Cuda){
         cuda::setDevice(0);
+        cuda::Free(0);
     }
 
     while(getframe()){
