@@ -24,10 +24,8 @@ int main(int argc,char *argv[]){
     while(getframe()){
         if(enable_Cuda){
             cuda::GpuMat frame_Cuda(frame);
-            cuda::cvtColor(frame_Cuda,frame_Cuda,CV_BGR2HSV);
+            //cuda::cvtColor(frame_Cuda,frame_Cuda,CV_BGR2HSV);
             frame_Cuda.download(frame);
-            //imshow("gpu_hsv",frame);
-            //waitKey(0);
         }else{
             cvtColor(frame,frame,CV_BGR2HSV);
         }
