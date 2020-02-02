@@ -2,6 +2,7 @@
 #include<opencv2/core/cuda.hpp>
 using namespace cv;
 std::string FILEPATH="../dataset/";
+std::string FILEPATH2="../dataout/";
 Mat frame;
 inline bool getframe(){
     static int cur_cnt=0;
@@ -10,6 +11,12 @@ inline bool getframe(){
     std::string filename=FILEPATH+"a"+std::to_string(cur_cnt)+".jpg";
     frame=imread(filename);
     return true;
+}
+inline void writeframe(){
+    static int cur_cnt=0;
+    ++cur_cnt;
+    std::string filename=FILEPATH2+"a"+std::to_string(cur_cnt)+".jpg";
+    imwrite(filename,frame);
 }
 int enable_Cuda=0;
 int main(int argc,char *argv[]){
@@ -24,10 +31,12 @@ int main(int argc,char *argv[]){
     while(getframe()){
         if(enable_Cuda){
             cuda::GpuMat frame_Cuda(frame);
-            //cuda::cvtColor(frame_Cuda,frame_Cuda,CV_BGR2HSV);
+            cuda::cvtColor(frame_Cuda,frame_Cuda,CV_BGR2HSV);
             frame_Cuda.download(frame);
+            writeframe();
         }else{
-            //cvtColor(frame,frame,CV_BGR2HSV);
+            cvtColor(frame,frame,CV_BGR2HSV);
+            writeframe();
         }
     }
     return 0;
