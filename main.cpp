@@ -34,14 +34,14 @@ int main(int argc,char *argv[]){
             clock_t st=clock();
             cuda::cvtColor(frame_Cuda,frame_Cuda,CV_BGR2HSV);
             clock_t ed=clock();
-            fprintf(stderr,"%.3f\n",double(ed-st)/CLOCKS_PER_SEC);
+            fprintf(stderr,"%.6f\n",double(ed-st)/CLOCKS_PER_SEC);
             frame_Cuda.download(frame);
             writeframe();
         }else{
             clock_t st=clock();
             cvtColor(frame,frame,CV_BGR2HSV);
             clock_t ed=clock();
-            fprintf(stderr,"%.3f\n",double(ed-st)/CLOCKS_PER_SEC);            
+            fprintf(stderr,"%.6f\n",double(ed-st)/CLOCKS_PER_SEC);            
             writeframe();
         }
     }
