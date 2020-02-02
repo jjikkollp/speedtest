@@ -26,17 +26,18 @@ int main(int argc,char *argv[]){
 
     if(enable_Cuda){
         cuda::setDevice(0);
-        cuda::Free(0);
     }
 
     while(getframe()){
         if(enable_Cuda){
+            cuda::registerPageLocked(frame);//lock_mem
             cuda::GpuMat frame_Cuda(frame);
             clock_t st=clock();
             cuda::cvtColor(frame_Cuda,frame_Cuda,CV_BGR2HSV);
             clock_t ed=clock();
             fprintf(stderr,"%.6f\n",double(ed-st)/CLOCKS_PER_SEC);
             frame_Cuda.download(frame);
+            cuda::unregisterPageLocked(frame);//unlock_mem
             writeframe();
         }else{
             clock_t st=clock();
