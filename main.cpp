@@ -31,11 +31,17 @@ int main(int argc,char *argv[]){
     while(getframe()){
         if(enable_Cuda){
             cuda::GpuMat frame_Cuda(frame);
+            clock_t st=clock();
             cuda::cvtColor(frame_Cuda,frame_Cuda,CV_BGR2HSV);
+            clock_t ed=clock();
+            fprintf(stderr,"%d\n",ed-st);
             frame_Cuda.download(frame);
             writeframe();
         }else{
+            clock_t st=clock();
             cvtColor(frame,frame,CV_BGR2HSV);
+            clock_t ed=clock();
+            fprintf(stderr,"%d\n",ed-st);
             writeframe();
         }
     }
