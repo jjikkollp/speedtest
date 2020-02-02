@@ -26,10 +26,10 @@ int main(int argc,char *argv[]){
             cuda::GpuMat frame_Cuda(frame);
             cuda::cvtColor(frame_Cuda,frame_Cuda,CV_BGR2HSV);
             frame_Cuda.download(frame);
-            imshow("gpu_hsv",frame);
-            waitKey(0);
+            //imshow("gpu_hsv",frame);
+            //waitKey(0);
         }else{
-
+            cvtColor(frame,frame,CV_BGR2HSV);
         }
     }
     return 0;
