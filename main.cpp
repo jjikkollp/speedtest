@@ -30,14 +30,17 @@ int main(int argc,char *argv[]){
 
     while(getframe()){
         if(enable_Cuda){
-            cuda::registerPageLocked(frame);//lock_mem
+            //cuda::registerPageLocked(frame);//lock_mem
+            clock_t st1=clock();
             cuda::GpuMat frame_Cuda(frame);
-            clock_t st=clock();
+            clock_t ed1=clock();
             cuda::cvtColor(frame_Cuda,frame_Cuda,CV_BGR2HSV);
-            clock_t ed=clock();
-            fprintf(stderr,"%.6f\n",double(ed-st)/CLOCKS_PER_SEC);
+            
+            clock_t st2=clock();
             frame_Cuda.download(frame);
-            cuda::unregisterPageLocked(frame);//unlock_mem
+            clock_t ed2=clock();
+            fprintf(stderr,"%.6f\n",double(ed2-st2)/CLOCKS_PER_SEC);
+            //cuda::unregisterPageLocked(frame);//unlock_mem
             writeframe();
         }else{
             clock_t st=clock();
