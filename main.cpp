@@ -27,7 +27,7 @@ int main(int argc,char *argv[]){
             //cuda::cvtColor(frame_Cuda,frame_Cuda,CV_BGR2HSV);
             frame_Cuda.download(frame);
         }else{
-            cvtColor(frame,frame,CV_BGR2HSV);
+            //cvtColor(frame,frame,CV_BGR2HSV);
         }
     }
     return 0;
